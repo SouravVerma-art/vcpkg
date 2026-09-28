@@ -4,8 +4,5 @@ set(VCPKG_LIBRARY_LINKAGE static)
 
 set(VCPKG_CMAKE_SYSTEM_NAME Linux)
 
-# glib must be shared to avoid constructor ordering crash when
-# statically linked alongside FFmpeg via LINK_GROUP:RESCAN.
-if(PORT MATCHES "glib")
-    set(VCPKG_LIBRARY_LINKAGE dynamic)
-endif()
+# Use system-provided glib (Ubuntu 22.04 LTS / glib 2.72.4)
+# to avoid linking dynamically against host glib with incompatible newer headers.
